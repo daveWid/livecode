@@ -29,6 +29,7 @@ Then you will want to set a div on your page with an id of example
 
 ``` html
 <div id="example"></div>
+```
 
 ## CSS and JS
 
