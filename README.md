@@ -5,7 +5,7 @@ site.
 
 ## Setup
 
-All you need to do to setup the library is have a copy of jQuery as long as the
+All you need to do to setup the library is have a copy of jQuery and the
 plugin code.
 
 ``` js
