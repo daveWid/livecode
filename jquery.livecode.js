@@ -2,7 +2,7 @@
  * jQuery plugin to allow for live coding!
  *
  * @author   Dave Widmer <dwidmer@bgsu.edu>
- * @version  0.1.0
+ * @version  0.1.1
  * @license  http://opensource.org/licenses/MIT MIT
  */
 (function($){
@@ -22,23 +22,26 @@
 	init = function(opts){
 		config = $.extend({}, config, opts);
 
-		$(this.selector).on('blur', function(e){
-			update(e.target);
+		$("[data-live-code]").each(function(){
+			this.contentEditable = true;
+
+			$(this).on('blur', function(e){
+				update(e.target, e.target.dataset.liveCode);
+			});
+
+			$(this).trigger('blur');
 		});
 
-		return this.each(function(){
-			this.contentEditable = true;
-			update(this);
-		});
+		return this;
 	},
 
 	/**
 	 * Updates the target with the new code.
 	 *
-	 * @param ele DOMElement  The DOM element that needs updated
+	 * @param ele      DOMElement  The DOM element that needs updated
+	 * @param selector string      The com selector
 	 */
-	update = function(ele){
-		var selector = ele.dataset.target;
+	update = function(ele, selector){
 		$(selector).html($(ele).text());
 
 		if (config.callback !== null) {
@@ -47,5 +50,8 @@
 	};
 
 	// Add the plugin to the jQuery chain
-	$.fn.livecode = init;
+	$.extend({
+		livecode: init
+	});
+	//$.fn.livecode = init;
 })(jQuery);
